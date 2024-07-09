@@ -28,6 +28,11 @@ export default function Textform(props) {
     setText(newText);
     props.showAlert("extra spaces removed!","success");
   }
+  const copyText = ()=>{
+ navigator.clipboard.writeText(text);// to select into clipboard
+document.getSelection().removeAllRanges();// after copy , it show selected and by using this function we can remove it and it does not affect the copied text.
+  props.showAlert("copied to clipboard!","success")
+  }
   const changeClear = () => {
     setText('');
     props.showAlert("text is cleared!","success");
@@ -52,21 +57,21 @@ export default function Textform(props) {
       });
   }, []);
 
-  var wordCount = text === '' ? 0 : text.split(/\s+\S+/g).length;
+  var wordCount = text === '' ? 0 : text.split(/\s+/g).filter((element)=>{return element.length!==0}).length;
   var preview = text === '' ? "Nothing to preview" : text;
   var timer = text === '' ? 0 : 0.0032 * 60 * text.split(' ').length;
 
   return (
     <>
       <div className="container" style={{color:props.mode === 'light' ? 'black' : 'white' }} >
-        <h1>{props.heading}</h1>
+        <h2>{props.heading}</h2>
         <div className="mb-3">
           <div className="my-3">
-            <h2>Fetched Data</h2>
+            <h2 style = {{color : props.mode==='light'?'blue':'yellow'}}>Fetched Data</h2>
             <ul>
               {table.map(doc => (
                 <li
-                  className='btn btn-secondary mx-2'
+                  className='btn btn-secondary mx-2 my-1'
                   key={doc.id}
                   onClick={() => setText(doc.Discription)}
                 >
@@ -80,16 +85,19 @@ export default function Textform(props) {
               backgroundColor: props.mode === 'dark' ? 'grey' : 'white',color:props.mode === 'dark' ? 'white' : 'black' }}>
           </textarea>
         </div>
-        <button className="btn btn-primary mx-2" onClick={changeUpCase}>
+        <button className="btn btn-primary mx-2 my-1" onClick={changeUpCase} disabled = {text.length===0}>
           Convert to Uppercase
         </button>
-        <button className="btn btn-primary mx-2" onClick={changeLowerCase}>
+        <button className="btn btn-primary mx-2 my-1" onClick={changeLowerCase} disabled = {text.length===0}>
           Convert to Lowercase
         </button>
-        <button className="btn btn-primary mx-2" onClick={removeExtraSpace}>
+        <button className="btn btn-primary mx-2 my-1" onClick={copyText} disabled = {text.length===0}>
+          Copy
+        </button>
+        <button className="btn btn-primary mx-2 my-1" onClick={removeExtraSpace} disabled = {text.length===0}>
           Remove Extra Space
         </button>
-        <button className="btn btn-primary mx-2" onClick={changeClear}>
+        <button className="btn btn-primary mx-2 my-1" onClick={changeClear} disabled = {text.length===0}>
           Clear
         </button>
 

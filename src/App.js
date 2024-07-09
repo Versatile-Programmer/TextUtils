@@ -51,7 +51,7 @@ function App() {
                     in this case if we don't write exact then in both case we will reach to component 1*/}
             {/* <Route exact path="/" element = { <Textform heading="Enter the text to analyse below" mode={mode} showAlert={showAlert} />}/> */}
           {/* </Routes> */}
-          <Textform heading="Enter the text to analyse below" mode={mode} showAlert={showAlert} />
+          <Textform heading="Try TextUtils - Word Counter , Character Counter, Remove Extra Spaces" mode={mode} showAlert={showAlert} />
         </div>
       {/* </Router> */}
     </>
